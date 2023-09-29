@@ -212,7 +212,7 @@ class NewsSlide {
 }
 
 class ProductsPage {
-  List<Content>? content;
+  List<Sell>? sell;
   Pageable? pageable;
   int? totalPages;
   int? totalElements;
@@ -225,7 +225,7 @@ class ProductsPage {
   bool? empty;
 
   ProductsPage(
-      {this.content,
+      {this.sell,
         this.pageable,
         this.totalPages,
         this.totalElements,
@@ -239,9 +239,9 @@ class ProductsPage {
 
   ProductsPage.fromJson(Map<String, dynamic> json) {
     if (json['content'] != null) {
-      content = <Content>[];
+      sell = <Sell>[];
       json['content'].forEach((v) {
-        content!.add(new Content.fromJson(v));
+        sell!.add(new Sell.fromJson(v));
       });
     }
     pageable = json['pageable'] != null
@@ -260,8 +260,8 @@ class ProductsPage {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.content != null) {
-      data['content'] = this.content!.map((v) => v.toJson()).toList();
+    if (this.sell != null) {
+      data['content'] = this.sell!.map((v) => v.toJson()).toList();
     }
     if (this.pageable != null) {
       data['pageable'] = this.pageable!.toJson();
@@ -281,7 +281,7 @@ class ProductsPage {
   }
 }
 
-class Content {
+class Sell {
   int? productId;
   String? productCode;
   String? productImage;
@@ -325,7 +325,7 @@ class Content {
   double? percentSalesVn;
   double? percentSalesKr;
 
-  Content(
+  Sell(
       {this.productId,
         this.productCode,
         this.productImage,
@@ -369,7 +369,7 @@ class Content {
         this.percentSalesVn,
         this.percentSalesKr});
 
-  Content.fromJson(Map<String, dynamic> json) {
+  Sell.fromJson(Map<String, dynamic> json) {
     productId = json['productId'];
     productCode = json['productCode'];
     productImage = json['productImage'];

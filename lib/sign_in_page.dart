@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'package:besoul/bottom_page.dart';
-import 'package:besoul/login_kol_page.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -103,7 +101,7 @@ class _LoginWidgetState extends State<_LoginWidget> {
     };
     try {
       var response = await dio.post(
-        'https://mobile.gongu365.vn/v5/api/public/customer/account/register',
+        'https://mobile.gongu365.vn/v6/api/public/customer/account/register',
         data: jsonEncode(data),
         options: Options(
           responseType: ResponseType.json,

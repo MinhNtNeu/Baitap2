@@ -212,7 +212,7 @@ class NewsSlide {
 }
 
 class ProductsPage {
-  List<Content>? content;
+  List<Favorite>? favorite;
   Pageable? pageable;
   int? totalPages;
   int? totalElements;
@@ -225,7 +225,7 @@ class ProductsPage {
   bool? empty;
 
   ProductsPage(
-      {this.content,
+      {this.favorite,
         this.pageable,
         this.totalPages,
         this.totalElements,
@@ -239,9 +239,9 @@ class ProductsPage {
 
   ProductsPage.fromJson(Map<String, dynamic> json) {
     if (json['content'] != null) {
-      content = <Content>[];
+      favorite = <Favorite>[];
       json['content'].forEach((v) {
-        content!.add(new Content.fromJson(v));
+        favorite!.add(new Favorite.fromJson(v));
       });
     }
     pageable = json['pageable'] != null
@@ -260,8 +260,8 @@ class ProductsPage {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.content != null) {
-      data['content'] = this.content!.map((v) => v.toJson()).toList();
+    if (this.favorite != null) {
+      data['content'] = this.favorite!.map((v) => v.toJson()).toList();
     }
     if (this.pageable != null) {
       data['pageable'] = this.pageable!.toJson();
@@ -281,7 +281,7 @@ class ProductsPage {
   }
 }
 
-class Content {
+class Favorite {
   int? productId;
   String? productImage;
   int? productRemain;
@@ -325,7 +325,7 @@ class Content {
   String? productCode;
   String? mfgDate;
 
-  Content(
+  Favorite(
       {this.productId,
         this.productImage,
         this.productRemain,
@@ -369,7 +369,7 @@ class Content {
         this.productCode,
         this.mfgDate});
 
-  Content.fromJson(Map<String, dynamic> json) {
+  Favorite.fromJson(Map<String, dynamic> json) {
     productId = json['productId'];
     productImage = json['productImage'];
     productRemain = json['productRemain'];

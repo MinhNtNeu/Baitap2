@@ -1,75 +1,6 @@
-class BestModel {
-  List<Information>? information;
-  Pageable? pageable;
-  int? totalPages;
-  int? totalElements;
-  bool? last;
-  bool? first;
-  Sort? sort;
-  int? numberOfElements;
-  int? size;
-  int? number;
-  bool? empty;
-
-  BestModel(
-      {this.information,
-        this.pageable,
-        this.totalPages,
-        this.totalElements,
-        this.last,
-        this.first,
-        this.sort,
-        this.numberOfElements,
-        this.size,
-        this.number,
-        this.empty});
-
-  BestModel.fromJson(Map<String, dynamic> json) {
-    if (json['content'] != null) {
-      information = <Information>[];
-      json['content'].forEach((v) {
-        information!.add(new Information.fromJson(v));
-      });
-    }
-    pageable = json['pageable'] != null
-        ? new Pageable.fromJson(json['pageable'])
-        : null;
-    totalPages = json['totalPages'];
-    totalElements = json['totalElements'];
-    last = json['last'];
-    first = json['first'];
-    sort = json['sort'] != null ? new Sort.fromJson(json['sort']) : null;
-    numberOfElements = json['numberOfElements'];
-    size = json['size'];
-    number = json['number'];
-    empty = json['empty'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.information != null) {
-      data['content'] = this.information!.map((v) => v.toJson()).toList();
-    }
-    if (this.pageable != null) {
-      data['pageable'] = this.pageable!.toJson();
-    }
-    data['totalPages'] = this.totalPages;
-    data['totalElements'] = this.totalElements;
-    data['last'] = this.last;
-    data['first'] = this.first;
-    if (this.sort != null) {
-      data['sort'] = this.sort!.toJson();
-    }
-    data['numberOfElements'] = this.numberOfElements;
-    data['size'] = this.size;
-    data['number'] = this.number;
-    data['empty'] = this.empty;
-    return data;
-  }
-}
-
-class Information {
+class ProductIdModel {
   int? productId;
+  String? productCode;
   String? productImage;
   int? productRemain;
   int? productRemainVn;
@@ -78,20 +9,21 @@ class Information {
   int? buyCount;
   int? likeNumber;
   int? commentCount;
-  double? averageStar;
+  int? averageStar;
   int? price;
   int? priceVn;
   int? priceKr;
-  int? priceSales;
-  int? priceSalesVn;
-  int? priceSalesKr;
+  int? percentSales;
+  int? percentSalesVn;
+  int? percentSalesKr;
   double? percentKol;
   double? percentKolVn;
   double? percentKolKr;
   String? productName;
   String? productDescription;
+  String? mfgDate;
   String? extendNote;
-  List<String>? productImages;
+  List<Null>? productImages;
   bool? isFreeDelivery;
   bool? isFreeDeliveryVn;
   bool? isFreeDeliveryKr;
@@ -104,11 +36,18 @@ class Information {
   Category? category;
   bool? likeStatus;
   String? saveStatus;
+  int? kolCommissionAmountOfOneProductVn;
+  int? kolCommissionAmountOfOneProductVnMin;
+  int? kolCommissionAmountOfOneProductVnMax;
+  double? kolCommissionAmountOfOneProductKr;
+  double? kolCommissionAmountOfOneProductKrMin;
+  double? kolCommissionAmountOfOneProductKrMax;
   List<Null>? dynamicSizes;
   List<Null>? dynamicColors;
 
-  Information(
+  ProductIdModel(
       {this.productId,
+        this.productCode,
         this.productImage,
         this.productRemain,
         this.productRemainVn,
@@ -121,14 +60,15 @@ class Information {
         this.price,
         this.priceVn,
         this.priceKr,
-        this.priceSales,
-        this.priceSalesVn,
-        this.priceSalesKr,
+        this.percentSales,
+        this.percentSalesVn,
+        this.percentSalesKr,
         this.percentKol,
         this.percentKolVn,
         this.percentKolKr,
         this.productName,
         this.productDescription,
+        this.mfgDate,
         this.extendNote,
         this.productImages,
         this.isFreeDelivery,
@@ -143,11 +83,18 @@ class Information {
         this.category,
         this.likeStatus,
         this.saveStatus,
+        this.kolCommissionAmountOfOneProductVn,
+        this.kolCommissionAmountOfOneProductVnMin,
+        this.kolCommissionAmountOfOneProductVnMax,
+        this.kolCommissionAmountOfOneProductKr,
+        this.kolCommissionAmountOfOneProductKrMin,
+        this.kolCommissionAmountOfOneProductKrMax,
         this.dynamicSizes,
         this.dynamicColors});
 
-  Information.fromJson(Map<String, dynamic> json) {
+  ProductIdModel.fromJson(Map<String, dynamic> json) {
     productId = json['productId'];
+    productCode = json['productCode'];
     productImage = json['productImage'];
     productRemain = json['productRemain'];
     productRemainVn = json['productRemainVn'];
@@ -160,16 +107,17 @@ class Information {
     price = json['price'];
     priceVn = json['priceVn'];
     priceKr = json['priceKr'];
-    priceSales = json['priceSales'];
-    priceSalesVn = json['priceSalesVn'];
-    priceSalesKr = json['priceSalesKr'];
+    percentSales = json['percentSales'];
+    percentSalesVn = json['percentSalesVn'];
+    percentSalesKr = json['percentSalesKr'];
     percentKol = json['percentKol'];
     percentKolVn = json['percentKolVn'];
     percentKolKr = json['percentKolKr'];
     productName = json['productName'];
     productDescription = json['productDescription'];
+    mfgDate = json['mfgDate'];
     extendNote = json['extendNote'];
-    productImages = json['productImages'].cast<String>();
+
     isFreeDelivery = json['isFreeDelivery'];
     isFreeDeliveryVn = json['isFreeDeliveryVn'];
     isFreeDeliveryKr = json['isFreeDeliveryKr'];
@@ -184,11 +132,24 @@ class Information {
         : null;
     likeStatus = json['likeStatus'];
     saveStatus = json['saveStatus'];
+    kolCommissionAmountOfOneProductVn =
+    json['kolCommissionAmountOfOneProductVn'];
+    kolCommissionAmountOfOneProductVnMin =
+    json['kolCommissionAmountOfOneProductVnMin'];
+    kolCommissionAmountOfOneProductVnMax =
+    json['kolCommissionAmountOfOneProductVnMax'];
+    kolCommissionAmountOfOneProductKr =
+    json['kolCommissionAmountOfOneProductKr'];
+    kolCommissionAmountOfOneProductKrMin =
+    json['kolCommissionAmountOfOneProductKrMin'];
+    kolCommissionAmountOfOneProductKrMax =
+    json['kolCommissionAmountOfOneProductKrMax'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['productId'] = this.productId;
+    data['productCode'] = this.productCode;
     data['productImage'] = this.productImage;
     data['productRemain'] = this.productRemain;
     data['productRemainVn'] = this.productRemainVn;
@@ -201,16 +162,16 @@ class Information {
     data['price'] = this.price;
     data['priceVn'] = this.priceVn;
     data['priceKr'] = this.priceKr;
-    data['priceSales'] = this.priceSales;
-    data['priceSalesVn'] = this.priceSalesVn;
-    data['priceSalesKr'] = this.priceSalesKr;
+    data['percentSales'] = this.percentSales;
+    data['percentSalesVn'] = this.percentSalesVn;
+    data['percentSalesKr'] = this.percentSalesKr;
     data['percentKol'] = this.percentKol;
     data['percentKolVn'] = this.percentKolVn;
     data['percentKolKr'] = this.percentKolKr;
     data['productName'] = this.productName;
     data['productDescription'] = this.productDescription;
+    data['mfgDate'] = this.mfgDate;
     data['extendNote'] = this.extendNote;
-    data['productImages'] = this.productImages;
     data['isFreeDelivery'] = this.isFreeDelivery;
     data['isFreeDeliveryVn'] = this.isFreeDeliveryVn;
     data['isFreeDeliveryKr'] = this.isFreeDeliveryKr;
@@ -227,6 +188,18 @@ class Information {
     }
     data['likeStatus'] = this.likeStatus;
     data['saveStatus'] = this.saveStatus;
+    data['kolCommissionAmountOfOneProductVn'] =
+        this.kolCommissionAmountOfOneProductVn;
+    data['kolCommissionAmountOfOneProductVnMin'] =
+        this.kolCommissionAmountOfOneProductVnMin;
+    data['kolCommissionAmountOfOneProductVnMax'] =
+        this.kolCommissionAmountOfOneProductVnMax;
+    data['kolCommissionAmountOfOneProductKr'] =
+        this.kolCommissionAmountOfOneProductKr;
+    data['kolCommissionAmountOfOneProductKrMin'] =
+        this.kolCommissionAmountOfOneProductKrMin;
+    data['kolCommissionAmountOfOneProductKrMax'] =
+        this.kolCommissionAmountOfOneProductKrMax;
     return data;
   }
 }
@@ -320,67 +293,6 @@ class Category {
     data['categoryParentSlideImages'] = this.categoryParentSlideImages;
     data['categoryName'] = this.categoryName;
     data['categoryImage'] = this.categoryImage;
-    return data;
-  }
-}
-
-class Pageable {
-  Sort? sort;
-  int? pageNumber;
-  int? pageSize;
-  int? offset;
-  bool? unpaged;
-  bool? paged;
-
-  Pageable(
-      {this.sort,
-        this.pageNumber,
-        this.pageSize,
-        this.offset,
-        this.unpaged,
-        this.paged});
-
-  Pageable.fromJson(Map<String, dynamic> json) {
-    sort = json['sort'] != null ? new Sort.fromJson(json['sort']) : null;
-    pageNumber = json['pageNumber'];
-    pageSize = json['pageSize'];
-    offset = json['offset'];
-    unpaged = json['unpaged'];
-    paged = json['paged'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.sort != null) {
-      data['sort'] = this.sort!.toJson();
-    }
-    data['pageNumber'] = this.pageNumber;
-    data['pageSize'] = this.pageSize;
-    data['offset'] = this.offset;
-    data['unpaged'] = this.unpaged;
-    data['paged'] = this.paged;
-    return data;
-  }
-}
-
-class Sort {
-  bool? sorted;
-  bool? unsorted;
-  bool? empty;
-
-  Sort({this.sorted, this.unsorted, this.empty});
-
-  Sort.fromJson(Map<String, dynamic> json) {
-    sorted = json['sorted'];
-    unsorted = json['unsorted'];
-    empty = json['empty'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['sorted'] = this.sorted;
-    data['unsorted'] = this.unsorted;
-    data['empty'] = this.empty;
     return data;
   }
 }

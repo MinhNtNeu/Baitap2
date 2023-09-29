@@ -77,11 +77,11 @@ class _BestProductWidget extends StatefulWidget {
 
 class _BestProductWidgetState extends State<_BestProductWidget> {
   final dio = Dio();
-  List<Content> bestProduct = [];
+  List<Information> bestProduct = [];
 
   Future<BestModel> getBestModel() async {
     Response r = await dio.get(
-        'https://mobile.gongu365.vn/v5/api/public/product/best?page=0&size=20');
+        'https://mobile.gongu365.vn/v6/api/public/product/best?page=0&size=20');
     return BestModel.fromJson(r.data);
   }
 
@@ -94,7 +94,7 @@ class _BestProductWidgetState extends State<_BestProductWidget> {
   initData() async {
     BestModel data = await getBestModel();
     setState(() {
-      bestProduct = data.content ?? [];
+      bestProduct = data.information ?? [];
     });
   }
 

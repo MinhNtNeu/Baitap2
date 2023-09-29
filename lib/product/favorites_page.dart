@@ -76,11 +76,11 @@ class _FavoriteProductWidget extends StatefulWidget {
 
 class _FavoriteProductWidgetState extends State<_FavoriteProductWidget> {
   final dio = Dio();
-  List<Content> favoriteproduct = [];
+  List<Favorite> favoriteproduct = [];
 
   Future<FavoriteModel> getFavoriteModel() async {
     Response r = await dio.get(
-        'https://mobile.gongu365.vn/v5/api/public/product/favorites?numberNews=5&page=0&size=10&sort=LIKE_NUMBER%2CDESC');
+        'https://mobile.gongu365.vn/v6/api/public/product/favorites?numberNews=5&page=0&size=10&sort=LIKE_NUMBER%2CDESC');
     return FavoriteModel.fromJson(r.data);
   }
 
@@ -93,7 +93,7 @@ class _FavoriteProductWidgetState extends State<_FavoriteProductWidget> {
   initData() async {
     FavoriteModel data = await getFavoriteModel();
     setState(() {
-      favoriteproduct = data.productsPage?.content ?? [];
+      favoriteproduct = data.productsPage?.favorite ?? [];
     });
   }
 

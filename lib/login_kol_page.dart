@@ -111,7 +111,7 @@ class _LoginWidgetState extends State<_LoginWidget> {
     };
     try {
       var response = await dio.post(
-        'https://mobile.gongu365.vn/v5/api/account/login-with-pass',
+        'https://mobile.gongu365.vn/v6/api/account/login-with-pass',
         data: jsonEncode(data),
         options: Options(
           responseType: ResponseType.json,

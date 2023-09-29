@@ -1,4 +1,5 @@
 
+import 'package:besoul/product/product_page.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -79,11 +80,12 @@ class _BestSellWidget extends StatefulWidget {
 
 class _BestSellWidgetState extends State<_BestSellWidget> {
   final dio = Dio();
-  List<Content> bestsell = [];
+  List<Sell> bestsell = [];
 
   Future<BestSellModel> getBestSellModel() async {
     Response r = await dio.get(
-        'https://mobile.gongu365.vn/v5/api/public/product/best-sell?numberNews=5&page=0&size=10&sort=buyCount%2CDESC');
+        'https://mobile.gongu365.vn/v6/api/public/product/best-sell?numberNews=5&page=0&size=10&sort=buyCount%2CDESC');
+    print(r.data);
     return BestSellModel.fromJson(r.data);
   }
 
@@ -96,7 +98,7 @@ class _BestSellWidgetState extends State<_BestSellWidget> {
   initData() async {
     BestSellModel data = await getBestSellModel();
     setState(() {
-      bestsell = data.productsPage?.content ?? [];
+      bestsell = data.productsPage?.sell ?? [];
     });
   }
 
@@ -133,83 +135,96 @@ class _BestSellWidgetState extends State<_BestSellWidget> {
         var y = bestsell[idx];
         return Padding(
           padding: const EdgeInsets.fromLTRB(8, 8, 8, 4),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                  width: 160,
-                  height: 190,
-                  child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(3)),
-                      child: Image.network(
-                        y.productImage ?? '',
-                        fit: BoxFit.cover,
-                      ))),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 105,
-                    child: Row(
-                      children: [
-                        buildRatingStars(y.averageStar?.toInt() ?? 0),
-                        Text(
-                          ' (${y.likeNumber})',
-                          style: const TextStyle(
-                              fontSize: 10, color: Color(0xFF949494)),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  Text(
-                    '${y.commentCount} nhận xét',
-                    style:
-                    const TextStyle(fontSize: 10, color: Color(0xFF949494)),
-                  ),
-                ],
-              ),
-              SizedBox(
-                width: 140,
-                child: Text(
-                  y.productName ?? '',
-                  style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF2E2E2E)),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+          child: InkResponse(
+            onTap: () async {
+              final r = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductPage(result: y.productId),
                 ),
-              ),
-              const SizedBox(
-                height: 4,
-              ),
-              SizedBox(
-                width: 160,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              );
+              if (r != null) {
+                print('ket qua la: $r');
+              }
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                    width: 160,
+                    height: 190,
+                    child: ClipRRect(
+                        borderRadius: const BorderRadius.all(Radius.circular(3)),
+                        child: Image.network(
+                          y.productImage ?? '',
+                          fit: BoxFit.cover,
+                        ))),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
                   children: [
-                    Text(
-                      '${y.price} đ',
-                      style: const TextStyle(
-                          fontSize: 10,
-                          color: Color(0xFF2E2E2E),
-                          fontWeight: FontWeight.w800),
+                    SizedBox(
+                      width: 105,
+                      child: Row(
+                        children: [
+                          buildRatingStars(y.averageStar?.toInt() ?? 0),
+                          Text(
+                            ' (${y.likeNumber})',
+                            style: const TextStyle(
+                                fontSize: 10, color: Color(0xFF949494)),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 4,
                     ),
                     Text(
-                      '${y.buyCount} đã bán',
+                      '${y.commentCount} nhận xét',
                       style:
-                      const TextStyle(fontSize: 10, color: Color(0xFF8D8D8D)),
-                    )
+                      const TextStyle(fontSize: 10, color: Color(0xFF949494)),
+                    ),
                   ],
                 ),
-              )
-            ],
+                SizedBox(
+                  width: 140,
+                  child: Text(
+                    y.productName ?? '',
+                    style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xFF2E2E2E)),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                SizedBox(
+                  width: 160,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '${y.price} đ',
+                        style: const TextStyle(
+                            fontSize: 10,
+                            color: Color(0xFF2E2E2E),
+                            fontWeight: FontWeight.w800),
+                      ),
+                      Text(
+                        '${y.buyCount} đã bán',
+                        style:
+                        const TextStyle(fontSize: 10, color: Color(0xFF8D8D8D)),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         );
       }),

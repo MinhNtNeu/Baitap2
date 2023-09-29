@@ -1,5 +1,5 @@
-class BestModel {
-  List<Information>? information;
+class CategoryIdModel {
+  List<Content>? content;
   Pageable? pageable;
   int? totalPages;
   int? totalElements;
@@ -11,8 +11,8 @@ class BestModel {
   int? number;
   bool? empty;
 
-  BestModel(
-      {this.information,
+  CategoryIdModel(
+      {this.content,
         this.pageable,
         this.totalPages,
         this.totalElements,
@@ -24,11 +24,11 @@ class BestModel {
         this.number,
         this.empty});
 
-  BestModel.fromJson(Map<String, dynamic> json) {
+  CategoryIdModel.fromJson(Map<String, dynamic> json) {
     if (json['content'] != null) {
-      information = <Information>[];
+      content = <Content>[];
       json['content'].forEach((v) {
-        information!.add(new Information.fromJson(v));
+        content!.add(new Content.fromJson(v));
       });
     }
     pageable = json['pageable'] != null
@@ -47,8 +47,8 @@ class BestModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.information != null) {
-      data['content'] = this.information!.map((v) => v.toJson()).toList();
+    if (this.content != null) {
+      data['content'] = this.content!.map((v) => v.toJson()).toList();
     }
     if (this.pageable != null) {
       data['pageable'] = this.pageable!.toJson();
@@ -68,29 +68,29 @@ class BestModel {
   }
 }
 
-class Information {
+class Content {
   int? productId;
+  String? productCode;
   String? productImage;
   int? productRemain;
   int? productRemainVn;
   int? productRemainKr;
-  String? madeIn;
   int? buyCount;
   int? likeNumber;
   int? commentCount;
-  double? averageStar;
+  int? averageStar;
   int? price;
   int? priceVn;
   int? priceKr;
-  int? priceSales;
-  int? priceSalesVn;
-  int? priceSalesKr;
+  int? percentSales;
+  int? percentSalesVn;
+  int? percentSalesKr;
   double? percentKol;
   double? percentKolVn;
   double? percentKolKr;
   String? productName;
   String? productDescription;
-  String? extendNote;
+  String? mfgDate;
   List<String>? productImages;
   bool? isFreeDelivery;
   bool? isFreeDeliveryVn;
@@ -104,16 +104,22 @@ class Information {
   Category? category;
   bool? likeStatus;
   String? saveStatus;
-  List<Null>? dynamicSizes;
+  List<DynamicSizes>? dynamicSizes;
   List<Null>? dynamicColors;
+  int? priceSales;
+  int? priceSalesVn;
+  int? priceSalesKr;
+  String? madeIn;
+  int? expiry;
+  String? extendNote;
 
-  Information(
+  Content(
       {this.productId,
+        this.productCode,
         this.productImage,
         this.productRemain,
         this.productRemainVn,
         this.productRemainKr,
-        this.madeIn,
         this.buyCount,
         this.likeNumber,
         this.commentCount,
@@ -121,15 +127,15 @@ class Information {
         this.price,
         this.priceVn,
         this.priceKr,
-        this.priceSales,
-        this.priceSalesVn,
-        this.priceSalesKr,
+        this.percentSales,
+        this.percentSalesVn,
+        this.percentSalesKr,
         this.percentKol,
         this.percentKolVn,
         this.percentKolKr,
         this.productName,
         this.productDescription,
-        this.extendNote,
+        this.mfgDate,
         this.productImages,
         this.isFreeDelivery,
         this.isFreeDeliveryVn,
@@ -144,15 +150,21 @@ class Information {
         this.likeStatus,
         this.saveStatus,
         this.dynamicSizes,
-        this.dynamicColors});
+        this.dynamicColors,
+        this.priceSales,
+        this.priceSalesVn,
+        this.priceSalesKr,
+        this.madeIn,
+        this.expiry,
+        this.extendNote});
 
-  Information.fromJson(Map<String, dynamic> json) {
+  Content.fromJson(Map<String, dynamic> json) {
     productId = json['productId'];
+    productCode = json['productCode'];
     productImage = json['productImage'];
     productRemain = json['productRemain'];
     productRemainVn = json['productRemainVn'];
     productRemainKr = json['productRemainKr'];
-    madeIn = json['madeIn'];
     buyCount = json['buyCount'];
     likeNumber = json['likeNumber'];
     commentCount = json['commentCount'];
@@ -160,15 +172,15 @@ class Information {
     price = json['price'];
     priceVn = json['priceVn'];
     priceKr = json['priceKr'];
-    priceSales = json['priceSales'];
-    priceSalesVn = json['priceSalesVn'];
-    priceSalesKr = json['priceSalesKr'];
+    percentSales = json['percentSales'];
+    percentSalesVn = json['percentSalesVn'];
+    percentSalesKr = json['percentSalesKr'];
     percentKol = json['percentKol'];
     percentKolVn = json['percentKolVn'];
     percentKolKr = json['percentKolKr'];
     productName = json['productName'];
     productDescription = json['productDescription'];
-    extendNote = json['extendNote'];
+    mfgDate = json['mfgDate'];
     productImages = json['productImages'].cast<String>();
     isFreeDelivery = json['isFreeDelivery'];
     isFreeDeliveryVn = json['isFreeDeliveryVn'];
@@ -184,16 +196,29 @@ class Information {
         : null;
     likeStatus = json['likeStatus'];
     saveStatus = json['saveStatus'];
+    if (json['dynamicSizes'] != null) {
+      dynamicSizes = <DynamicSizes>[];
+      json['dynamicSizes'].forEach((v) {
+        dynamicSizes!.add(new DynamicSizes.fromJson(v));
+      });
+    }
+
+    priceSales = json['priceSales'];
+    priceSalesVn = json['priceSalesVn'];
+    priceSalesKr = json['priceSalesKr'];
+    madeIn = json['madeIn'];
+    expiry = json['expiry'];
+    extendNote = json['extendNote'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['productId'] = this.productId;
+    data['productCode'] = this.productCode;
     data['productImage'] = this.productImage;
     data['productRemain'] = this.productRemain;
     data['productRemainVn'] = this.productRemainVn;
     data['productRemainKr'] = this.productRemainKr;
-    data['madeIn'] = this.madeIn;
     data['buyCount'] = this.buyCount;
     data['likeNumber'] = this.likeNumber;
     data['commentCount'] = this.commentCount;
@@ -201,15 +226,15 @@ class Information {
     data['price'] = this.price;
     data['priceVn'] = this.priceVn;
     data['priceKr'] = this.priceKr;
-    data['priceSales'] = this.priceSales;
-    data['priceSalesVn'] = this.priceSalesVn;
-    data['priceSalesKr'] = this.priceSalesKr;
+    data['percentSales'] = this.percentSales;
+    data['percentSalesVn'] = this.percentSalesVn;
+    data['percentSalesKr'] = this.percentSalesKr;
     data['percentKol'] = this.percentKol;
     data['percentKolVn'] = this.percentKolVn;
     data['percentKolKr'] = this.percentKolKr;
     data['productName'] = this.productName;
     data['productDescription'] = this.productDescription;
-    data['extendNote'] = this.extendNote;
+    data['mfgDate'] = this.mfgDate;
     data['productImages'] = this.productImages;
     data['isFreeDelivery'] = this.isFreeDelivery;
     data['isFreeDeliveryVn'] = this.isFreeDeliveryVn;
@@ -227,6 +252,16 @@ class Information {
     }
     data['likeStatus'] = this.likeStatus;
     data['saveStatus'] = this.saveStatus;
+    if (this.dynamicSizes != null) {
+      data['dynamicSizes'] = this.dynamicSizes!.map((v) => v.toJson()).toList();
+    }
+
+    data['priceSales'] = this.priceSales;
+    data['priceSalesVn'] = this.priceSalesVn;
+    data['priceSalesKr'] = this.priceSalesKr;
+    data['madeIn'] = this.madeIn;
+    data['expiry'] = this.expiry;
+    data['extendNote'] = this.extendNote;
     return data;
   }
 }
@@ -308,6 +343,7 @@ class Category {
         json['categoryParentSlideImages'].cast<String>();
     categoryName = json['categoryName'];
     categoryImage = json['categoryImage'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -320,6 +356,84 @@ class Category {
     data['categoryParentSlideImages'] = this.categoryParentSlideImages;
     data['categoryName'] = this.categoryName;
     data['categoryImage'] = this.categoryImage;
+   
+    return data;
+  }
+}
+
+class DynamicSizes {
+  int? dynamicSizeId;
+  String? dynamicSizeCode;
+  String? dynamicSizeCodeVn;
+  String? dynamicSizeCodeKr;
+  int? price;
+  int? priceVn;
+  int? priceKr;
+  int? percentSales;
+  int? percentSalesVn;
+  int? percentSalesKr;
+  double? percentKol;
+  double? percentKolVn;
+  double? percentKolKr;
+  int? productRemain;
+  int? productRemainVn;
+  int? productRemainKr;
+
+  DynamicSizes(
+      {this.dynamicSizeId,
+        this.dynamicSizeCode,
+        this.dynamicSizeCodeVn,
+        this.dynamicSizeCodeKr,
+        this.price,
+        this.priceVn,
+        this.priceKr,
+        this.percentSales,
+        this.percentSalesVn,
+        this.percentSalesKr,
+        this.percentKol,
+        this.percentKolVn,
+        this.percentKolKr,
+        this.productRemain,
+        this.productRemainVn,
+        this.productRemainKr});
+
+  DynamicSizes.fromJson(Map<String, dynamic> json) {
+    dynamicSizeId = json['dynamicSizeId'];
+    dynamicSizeCode = json['dynamicSizeCode'];
+    dynamicSizeCodeVn = json['dynamicSizeCodeVn'];
+    dynamicSizeCodeKr = json['dynamicSizeCodeKr'];
+    price = json['price'];
+    priceVn = json['priceVn'];
+    priceKr = json['priceKr'];
+    percentSales = json['percentSales'];
+    percentSalesVn = json['percentSalesVn'];
+    percentSalesKr = json['percentSalesKr'];
+    percentKol = json['percentKol'];
+    percentKolVn = json['percentKolVn'];
+    percentKolKr = json['percentKolKr'];
+    productRemain = json['productRemain'];
+    productRemainVn = json['productRemainVn'];
+    productRemainKr = json['productRemainKr'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['dynamicSizeId'] = this.dynamicSizeId;
+    data['dynamicSizeCode'] = this.dynamicSizeCode;
+    data['dynamicSizeCodeVn'] = this.dynamicSizeCodeVn;
+    data['dynamicSizeCodeKr'] = this.dynamicSizeCodeKr;
+    data['price'] = this.price;
+    data['priceVn'] = this.priceVn;
+    data['priceKr'] = this.priceKr;
+    data['percentSales'] = this.percentSales;
+    data['percentSalesVn'] = this.percentSalesVn;
+    data['percentSalesKr'] = this.percentSalesKr;
+    data['percentKol'] = this.percentKol;
+    data['percentKolVn'] = this.percentKolVn;
+    data['percentKolKr'] = this.percentKolKr;
+    data['productRemain'] = this.productRemain;
+    data['productRemainVn'] = this.productRemainVn;
+    data['productRemainKr'] = this.productRemainKr;
     return data;
   }
 }
