@@ -32,16 +32,80 @@ class _HomePageState extends State<HomePage> {
           SystemNavigator.pop();
           return false;
         },
-        child: const Scaffold(
+        child:  Scaffold(
           body: SafeArea(
-            child: SingleChildScrollView(
-              child: _IntroduceWidget(),
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+                  child: _IntroduceWidget(),
+                ),
+                Positioned(
+                  top: 0,
+                    right: 0,
+                    left: 0,
+                    child: appbar())
+              ],
             ),
           ),
         ),
       ),
     );
   }
+  Widget appbar() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 25, 10, 0),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              const Text(
+                "Tất cả ",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const Text(
+                "Best ",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFFE7E7E7),
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const Text(
+                "Best review ",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFFE7E7E7),
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const Text(
+                "Event ",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFFE7E7E7),
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              SvgPicture.asset('assets/w_search.svg'),
+              SvgPicture.asset('assets/goods.svg'),
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Container(
+            width: 358,
+            height: 1,
+            color: Colors.white,
+          ),
+        ],
+      ),
+    );}
 }
 
 class _IntroduceWidget extends StatefulWidget {
@@ -211,7 +275,6 @@ Future<FavoriteModel> getFavorite() async {
                           ),
                         ),
                       ),
-                      Positioned(top: 10, right: 10, left: 10, child: appbar()),
                       SizedBox(
                         width: 450,
                         child: Column(
@@ -304,61 +367,7 @@ Future<FavoriteModel> getFavorite() async {
     //   typeWidget(),
   }
 
-  Widget appbar() {
-    return Padding(
-          padding: const EdgeInsets.fromLTRB(10, 25, 10, 0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  const Text(
-                    "Tất cả ",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const Text(
-                    "Best ",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFFE7E7E7),
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  const Text(
-                    "Best review ",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFFE7E7E7),
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  const Text(
-                    "Event ",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFFE7E7E7),
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  SvgPicture.asset('assets/w_search.svg'),
-                  SvgPicture.asset('assets/goods.svg'),
-                ],
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Container(
-                width: 358,
-                height: 1,
-                color: Colors.white,
-              ),
-            ],
-          ),
-        );}
+
 
   Widget typeWidget() {
     return Padding(

@@ -78,13 +78,13 @@ class Content {
   int? buyCount;
   int? likeNumber;
   int? commentCount;
-  int? averageStar;
+  double? averageStar;
   int? price;
   int? priceVn;
   int? priceKr;
-  int? percentSales;
-  int? percentSalesVn;
-  int? percentSalesKr;
+  double? percentSales;
+  double? percentSalesVn;
+  double? percentSalesKr;
   double? percentKol;
   double? percentKolVn;
   double? percentKolKr;

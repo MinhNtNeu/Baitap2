@@ -85,7 +85,6 @@ class _BestSellWidgetState extends State<_BestSellWidget> {
   Future<BestSellModel> getBestSellModel() async {
     Response r = await dio.get(
         'https://mobile.gongu365.vn/v6/api/public/product/best-sell?numberNews=5&page=0&size=10&sort=buyCount%2CDESC');
-    print(r.data);
     return BestSellModel.fromJson(r.data);
   }
 
@@ -140,7 +139,7 @@ class _BestSellWidgetState extends State<_BestSellWidget> {
               final r = await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ProductPage(result: y.productId),
+                  builder: (context) => ProductPage(result: y.productId, categoryId: y.categoryId),
                 ),
               );
               if (r != null) {
